@@ -33,7 +33,7 @@ const Post = () => {
 
               </div>
               <div className=''>
-                <ReactQuill value={value} onChange={setValue} theme='snow' className='lg:w-[800px] lg:h-[300px] w-[400px] h-[150px] ' />
+                <ReactQuill value={value} onChange={setValue} theme='snow' className='ease-in-out duration-500 lg:w-[800px] lg:h-[300px] md:w-[600px] md:h-[225px] w-[400px] h-[150px] ' />
               </div>
             </div>
           </form>
