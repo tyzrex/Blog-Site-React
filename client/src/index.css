@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arvo', serif;
+}
+
+/* create color variables */
+
+:root{
+    --custom-green : #73c49a;
+    --custom-green-dark : #387b58;
+}
+
+/* body{
+    background-color: #f5f5f5;
+} */
+
+.hover-underline-animation {
+    position: inherit;
+}
+
+.hover-underline-animation:hover {
+    color: var(--custom-green-dark); ;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 3px;
+    left: 0;
+
+    background-color: var(--custom-green);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.bg-custom-green{
+    background-color: var(--custom-green);
+}
+
+.text-custom-green{
+    color: var(--custom-green);
+}
+
+.bg-custom-green_hover{
+    background-color: var(--custom-green-dark);
+}
+
+.text-custom-green_hover{
+    color: var(--custom-green-dark);
+}
+
+.posts:nth-child(odd) .inner{
+    flex-direction: row-reverse;
+}
+
+.posts:nth-child(odd) .inner .img-container img{
+    left:-20px;
+    top: 20px;
+}
