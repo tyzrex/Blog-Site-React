@@ -1,6 +1,32 @@
 import React from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Register = () => {
+
+    const [data,setData] = useState({
+        user_name:"",
+        user_email:"",
+        user_password:"",
+    })                 
+
+    const handleChange = (e) => {
+        setData({...data,[e.target.name]:e.target.value})
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try{
+            const response = await axios.post('/auth/register',data);
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    console.log(data);
+
+
     return (
         <div>
             <section className="bg-white">
@@ -50,32 +76,18 @@ const Register = () => {
                                         for="FirstName"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        First Name
+                                        Username
                                     </label>
 
                                     <input
+                                        onChange={handleChange}
                                         type="text"
-                                        id="FirstName"
-                                        name="first_name"
+                                        id="Username"
+                                        name="user_name"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                                     />
                                 </div>
 
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label
-                                        for="LastName"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Last Name
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        id="LastName"
-                                        name="last_name"
-                                        className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                                    />
-                                </div>
 
                                 <div className="col-span-6">
                                     <label for="Email" className="block text-sm font-medium text-gray-700">
@@ -83,9 +95,10 @@ const Register = () => {
                                     </label>
 
                                     <input
+                                    onChange={handleChange}
                                         type="email"
                                         id="Email"
-                                        name="email"
+                                        name="user_email"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                                     />
                                 </div>
@@ -99,31 +112,18 @@ const Register = () => {
                                     </label>
 
                                     <input
+                                    onChange={handleChange}
                                         type="password"
                                         id="Password"
-                                        name="password"
-                                        className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                                    />
-                                </div>
-
-                                <div className="col-span-6 sm:col-span-3">
-                                    <label
-                                        for="PasswordConfirmation"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Password Confirmation
-                                    </label>
-
-                                    <input
-                                        type="password"
-                                        id="PasswordConfirmation"
-                                        name="password_confirmation"
+                                        name="user_password"
+                                        autoComplete='on'
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                                     />
                                 </div>
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
+                                        onClick={handleSubmit}
                                         className="inline-block hover:bg-emerald-600 shrink-0 rounded-md border border-none bg-custom-green px-12 py-3 text-sm font-medium text-white transition hover:text-white focus:outline-none focus:ring"
                                     >
                                         Create an account
