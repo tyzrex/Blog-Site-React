@@ -3,12 +3,13 @@ CREATE DATABASE blog;
 -- Postgres user
 
 create table users (
-    id bigserial primary key,
-    user_name varchar(255) not null,
-    user_password varchar(255) not null,
-    user_email varchar(255) not null,
-    image varchar(255),
-    user_id varchar(255) not null
+    id serial primary key,
+    username varchar(255) not null,
+    password varchar(255) not null,
+    email varchar(255) not null,
+    created_at timestamp default now(),
+    img varchar(255),
+    uid varchar(255) not null
 );
 
 

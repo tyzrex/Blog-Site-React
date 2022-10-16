@@ -11,7 +11,7 @@ const Postcards = ({ index, image, title, description }) => {
                     <div className="img-container max-h-[400px] max-w-[400px] bg-custom-green rounded">
                          <img alt='postimg' className="max-h-[400px] top-5 left-5 relative max-w-[400px]object-cover object-center rounded" src={image} />
                     </div>
-                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 flex flex-col gap-6">
+                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 flex flex-col gap-6 md:max-w-[95%] ">
                             <h1 className="text-custom-green text-3xl title-font font-bold mb-1">{title}</h1>
                             <p className="leading-relaxed">{description}</p>
                             <div className='flex justify-between items-center'>

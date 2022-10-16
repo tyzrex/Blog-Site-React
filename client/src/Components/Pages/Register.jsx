@@ -1,39 +1,64 @@
-import React from 'react'
-import { useState } from 'react'
-import axios from 'axios'
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
 
-    const [data,setData] = useState({
-        user_name:"",
-        user_email:"",
-        user_password:"",
-    })                 
+    const [errors, setErrors] = useState({});
+    const [subError, setSubError] = useState(null);
+
+    const validate = () => {
+        let errors = {};
+        if (!data.name.trim()) {
+            errors.name = "Username required";
+        }
+        if (!data.email) {
+            errors.email = "Email required";
+        } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+            errors.email = "Email address is invalid";
+        }
+        if (!data.password) {
+            errors.password = "Password is required";
+        } else if (data.password.length < 6) {
+            errors.password = "Password needs to be 6 characters or more";
+        }
+        setErrors(errors);
+        return errors;
+    };
 
     const handleChange = (e) => {
-        setData({...data,[e.target.name]:e.target.value})
-    }
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        try{
-            const response = await axios.post('/auth/register',data);
+        e.preventDefault();
+        const error = validate();
+        if (Object.keys(error).length !== 0) {
+            console.log("Invalid submissions try again");
+        } else {
+            try {
+                const response = await axios.post('/auth/register', data)
+            }
+            catch (err) {
+                setSubError(err.response.data)
+                console.log(err)
+            }
         }
-        catch(err){
-            console.log(err);
-        }
-    }
+    };
+
 
     console.log(data);
-
 
     return (
         <div>
             <section className="bg-white">
                 <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-                    <aside
-                        className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6"
-                    >
+                    <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
                         <img
                             alt="Pattern"
                             src="https://images.unsplash.com/photo-1619353116388-d7c80ade34a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
@@ -41,9 +66,7 @@ const Register = () => {
                         />
                     </aside>
 
-                    <main
-                        className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
-                    >
+                    <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6">
                         <div className="max-w-xl lg:max-w-3xl">
                             <a className="block text-custom-green" href="/">
                                 <span className="sr-only">Home</span>
@@ -60,14 +83,13 @@ const Register = () => {
                                 </svg>
                             </a>
 
-                            <h1
-                                className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl"
-                            >
-                                Welcome to TyZ <span className='text-custom-green'>Blogs</span>
+                            <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+                                Welcome to TyZ <span className="text-custom-green">Blogs</span>
                             </h1>
 
                             <p className="mt-4 leading-relaxed text-gray-500">
-                                So what are you waiting for? Register and unleash your creativity.
+                                So what are you waiting for? Register and unleash your
+                                creativity.
                             </p>
 
                             <form action="#" className="mt-8 grid grid-cols-6 gap-6">
@@ -83,24 +105,38 @@ const Register = () => {
                                         onChange={handleChange}
                                         type="text"
                                         id="Username"
-                                        name="user_name"
+                                        name="name"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                                        aria-required="true"
                                     />
+                                    {errors.name && (
+                                        <p className="text-red-500 text-xs italic">
+                                            {errors.name}
+                                        </p>
+                                    )}
                                 </div>
 
-
                                 <div className="col-span-6">
-                                    <label for="Email" className="block text-sm font-medium text-gray-700">
+                                    <label
+                                        for="Email"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
                                         Email
                                     </label>
 
                                     <input
-                                    onChange={handleChange}
+                                        onChange={handleChange}
                                         type="email"
                                         id="Email"
-                                        name="user_email"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                                        name="email"
                                     />
+
+                                    {errors.email && (
+                                        <p className="text-red-500 text-xs italic">
+                                            {errors.email}
+                                        </p>
+                                    )}
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-3">
@@ -112,13 +148,22 @@ const Register = () => {
                                     </label>
 
                                     <input
-                                    onChange={handleChange}
+                                        onChange={handleChange}
                                         type="password"
                                         id="Password"
-                                        name="user_password"
-                                        autoComplete='on'
+                                        name="password"
+                                        autoComplete="on"
                                         className="mt-1 p-2 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                                     />
+                                    {errors.password && (
+                                        <p className="text-red-500 text-xs italic">
+                                            {errors.password}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="col-span-6 sm:col-span-3 flex items-center">
+                                    {subError && <h1 className="text-red-600">{subError}</h1>}
                                 </div>
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
@@ -131,7 +176,13 @@ const Register = () => {
 
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                         Already have an account?
-                                        <a href="/login" className="text-gray-700 underline hover:text-teal-300">Log in</a>.
+                                        <a
+                                            href="/login"
+                                            className="text-gray-700 underline hover:text-teal-300"
+                                        >
+                                            Log in
+                                        </a>
+                                        .
                                     </p>
                                 </div>
                             </form>
@@ -139,9 +190,8 @@ const Register = () => {
                     </main>
                 </div>
             </section>
-
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;
