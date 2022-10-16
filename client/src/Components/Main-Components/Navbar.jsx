@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { RiMenu4Line } from 'react-icons/ri'
 import { AiOutlineClose } from 'react-icons/ai'
 import Logo from '../../Assets/logo4.png'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Context/Authcontext';
 
 const Navbar = () => {
     const [nav, setNav] = useState(true);
     const handleNav = () => {
         setNav(!nav);
     }
+
+    const {user,logoutUser} = useContext(AuthContext);
     return (
         <div>
             <div className='text-black lg:max-w-[1200px] max-w-[95%] bg-white flex justify-between items-center mx-auto px-4 h-28'>
@@ -27,10 +30,17 @@ const Navbar = () => {
                         <Link to='/post'>
                         <div className='p-4 hover-underline-animation'>Write</div>
                         </Link>
-                        <button className='p-4 hover-underline-animation'>Username</button>
+                        {user?(
+                            <button className='p-4 hover-underline-animation'>{user.username}</button>
+                        ):(
+                            <></>
+                        )}
+                        {user? <button onClick={logoutUser} className='bg-custom-green hover:bg-emerald-500 p-4 rounded-full ease-in-out duration-500 hover:text-white'>Logout</button> : 
                         <Link to='/login'>
                         <button className='bg-custom-green hover:bg-emerald-500 p-4 rounded-full ease-in-out duration-500 hover:text-white'><span className='text-white'>Login</span></button>
                         </Link>
+                        }
+                        
                     </ul>
                 </div>
 

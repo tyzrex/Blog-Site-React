@@ -1,7 +1,7 @@
 import './App.css';
 import Homepage from './Components/Pages/Homepage';
 import Login from './Components/Pages/Login';
-import {createBrowserRouter,RouterProvider,Route} from 'react-router-dom';
+import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 import Register from './Components/Pages/Register';
 import Newposts from './Components/Pages/Newposts';
 import Post from './Components/Pages/Post';

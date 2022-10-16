@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [data, setData] = useState({
@@ -43,6 +44,7 @@ const Register = () => {
         } else {
             try {
                 const response = await axios.post('/auth/register', data)
+                navigate('/login')
             }
             catch (err) {
                 setSubError(err.response.data)
@@ -50,6 +52,8 @@ const Register = () => {
             }
         }
     };
+
+    const navigate = useNavigate();
 
 
     console.log(data);

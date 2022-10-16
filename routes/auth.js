@@ -3,8 +3,12 @@ const router = express.Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
-// routesq
+// routes
+
+// register
 router.post("/register", async (req, res) => {
   try {
     const { name, email, password, img } = req.body;
@@ -28,5 +32,44 @@ router.post("/register", async (req, res) => {
     console.error(err.message);
   }
 });
+
+//route for login
+
+router.post("/login",async(req,res)=>{
+  try{
+    const {name} = req.body;
+    const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+      name,
+    ]);
+    if(user.rows.length === 0){
+      return res.status(401).json("User does not exist");
+    }
+    const validPassword = await bcrypt.compare(req.body.password,user.rows[0].password);
+    if(!validPassword){
+      return res.status(409).json("Incorrect username or password");
+    }
+
+    const token = jwt.sign({id:user.rows[0].id},process.env.JWT_SECRET);
+    const {password, ...others} = user.rows[0];
+    
+    res.cookie("access_token",token,{
+      httpOnly:true,
+      sameSite:true
+      }).status(200).json(others)
+  }catch(err){
+    console.error(err.message);
+  }
+})
+
+//route for logout
+
+router.post("/logout",async(req,res)=>{
+  res.clearCookie("access_token",{
+    sameSite:"none",
+    secure:true
+  });
+  res.status(200).json("Logged out");
+}
+)
 
 module.exports = router;
