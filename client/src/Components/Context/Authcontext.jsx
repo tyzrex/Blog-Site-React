@@ -4,7 +4,7 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || "");
 
     const loginUser = async (data) => {
         try {
@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
     const logoutUser = async (data) => {
         await axios.post('/auth/logout')
-        setUser(null)
+        setUser("")
         localStorage.removeItem("user")
     }
 

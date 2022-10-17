@@ -15,7 +15,7 @@ const Navbar = () => {
     return (
         <div>
             <div className='text-black lg:max-w-[1200px] max-w-[95%] bg-white flex justify-between items-center mx-auto px-4 h-28'>
-                <img src={Logo} className="h-24 rounded-full" alt="" />
+                <Link to ='/'><img src={Logo} className="h-24 rounded-full" alt="" /></Link>
                 <div className=''>
                     <ul className='hidden md:flex cursor-pointer'>
                         <Link to='/'>

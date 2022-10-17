@@ -1,8 +1,25 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {FaEdit} from 'react-icons/fa'
 import {AiOutlineDelete} from 'react-icons/ai'
+import { AuthContext } from '../Context/Authcontext'
+import axios from 'axios'
 
-const Detailpost = ({title,description,image}) => {
+const Detailpost = ({title,description,image,username}) => {
+
+    const {user} = useContext(AuthContext);
+
+    const id = window.location.pathname.split('/')[2];
+
+    const handleDelete = async () => {
+        try{
+            await axios.delete(`/posts/${id}`)
+            window.location.replace('/')
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
     return (
         <div>
             <div className='flex flex-col items-center justify-center mx-3 my-4 h-auto'>
@@ -11,11 +28,15 @@ const Detailpost = ({title,description,image}) => {
                     <img src={image} alt="" className='w-[100%] h-[400px] object-cover ' />
                     <div className='grid gap-4'>
                         <div className='grid gap-2 text-custom-green font-bold'>
-                            <p className='flex items-center gap-2'>Posted by:
-                                <p className='text-sm text-gray-600'>Sulav Baral</p>
-                                <AiOutlineDelete className='ml-2 text-red-500' />
-                                <FaEdit className='ml-2 text-blue-500' />
-                            </p>
+                            <div className='flex items-center gap-2'>Posted by:
+                                <div className='text-sm text-gray-600'>{username}</div>
+                                {user.username === username &&
+                                    <div className='flex gap-2'>
+                                    <AiOutlineDelete className='ml-2 text-red-500' onClick={handleDelete} />
+                                    <FaEdit className='ml-2 text-blue-500' />
+                                    </div>
+                                }
+                            </div>
                             <p>Posted on: </p>
                         </div>
                         <div className='mx-auto'>

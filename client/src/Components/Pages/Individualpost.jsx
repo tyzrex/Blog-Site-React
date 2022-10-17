@@ -1,8 +1,13 @@
 import React from 'react'
 import SimilarPosts from '../Card-Components/SimilarPosts'
+import {useState, useEffect} from 'react'
 import Footer from '../Main-Components/Footer'
 import Navbar from '../Main-Components/Navbar'
 import Detailpost from '../Card-Components/Detailpost'
+import axios from 'axios'
+import { useLocation } from 'react-router-dom'
+import Loading from '../Main-Components/Loading'
+import { AuthContext } from '../Context/Authcontext'
 
 const Individualpost = () => {
 
@@ -33,14 +38,43 @@ const Individualpost = () => {
         },
     ]
 
-    const individualDummy = [
-        {
-            id: 3,
-            title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
-            description: 'm ipsum dolor sit amet consectetur adipisicing elit. Ipsum aperiam perspiciatis voluptate, magni, eligendi at architecto veniam nobis saepe eius doloremque ipsa maxime, ullam perferendis dolore quasi enim debitis! Nesciunt! Odit consequuntur unde, expedita fugiat consequatur quos dolorem deleniti earum magni, iure harum neque aperiam ullam. Accusantium dolor ea nostrum, dignissimos, id est at voluptates excepturi Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum aperiam perspiciatis voluptate, magni, eligendi at architecto veniam nobis saepe eius doloremque ipsa maxime, ullam perferendis dolore quasi enim debitis! Nesciunt! Odit consequuntur unde, expedita fugiat consequatur quos dolorem deleniti earum magni, iure harum neque aperiam ullam. Accusantium dolor ea nostrum, dignissimos, id est at voluptates excepturi inventore!',
-            img: 'https://images.unsplash.com/photo-1568945721873-6f1889039902?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Z3JlZW4lMjBib29rfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+    // const individualDummy = [
+    //     {
+    //         id: 3,
+    //         title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
+    //         description: 'm ipsum dolor sit amet consectetur adipisicing elit. Ipsum aperiam perspiciatis voluptate, magni, eligendi at architecto veniam nobis saepe eius doloremque ipsa maxime, ullam perferendis dolore quasi enim debitis! Nesciunt! Odit consequuntur unde, expedita fugiat consequatur quos dolorem deleniti earum magni, iure harum neque aperiam ullam. Accusantium dolor ea nostrum, dignissimos, id est at voluptates excepturi Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum aperiam perspiciatis voluptate, magni, eligendi at architecto veniam nobis saepe eius doloremque ipsa maxime, ullam perferendis dolore quasi enim debitis! Nesciunt! Odit consequuntur unde, expedita fugiat consequatur quos dolorem deleniti earum magni, iure harum neque aperiam ullam. Accusantium dolor ea nostrum, dignissimos, id est at voluptates excepturi inventore!',
+    //         img: 'https://images.unsplash.com/photo-1568945721873-6f1889039902?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Z3JlZW4lMjBib29rfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
+    //     }
+    // ]
+
+    const [post,setPost] = useState([])
+
+    const [individualPost,setIndividualPost] = useState([])
+
+    console.log(individualPost)
+
+
+    const [loading,setLoading] = useState(true)
+
+    const id = window.location.pathname.split("/")[2]
+    
+    const getPost = async () => {
+        try{
+            const response = await axios.get(`/posts/${id}`)
+            setIndividualPost(response.data)
+            setLoading(false)
         }
-    ]
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            getPost()
+        }
+        ,1000)
+    },[id])
 
 
     return (
@@ -50,9 +84,10 @@ const Individualpost = () => {
                 <div className='current-post h-auto lg:w-[70%] max-w-[90%] '>
                     <div className='flex flex-col'>
                         {
-                            individualDummy.map((item) => (
-                                <Detailpost key={item.id} title={item.title} description={item.description} image={item.img} />
-                            ))
+                            loading ? <Loading /> : (
+                                    <Detailpost title={individualPost.title} description={individualPost.content} image={individualPost.image} username={individualPost.username} />
+            
+                                )
                         }
                     </div>
                 </div>
