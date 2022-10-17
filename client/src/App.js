@@ -7,6 +7,7 @@ import Newposts from './Components/Pages/Newposts';
 import Post from './Components/Pages/Post';
 import Individualpost from './Components/Pages/Individualpost';
 
+
 const router = createBrowserRouter(
   [{
       path:"/",

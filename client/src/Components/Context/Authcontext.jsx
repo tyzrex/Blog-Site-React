@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const logoutUser = async (data) => {
         await axios.post('/auth/logout')
         setUser("")
+        window.location.replace('/')
         localStorage.removeItem("user")
     }
 

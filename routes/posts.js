@@ -61,17 +61,20 @@ router.delete('/:id',async(req,res)=>{
         if(!token){
             return res.status(401).json("Unauthorized")
         }
-        const verified = jwt.verify(token,process.env.JWT_SECRET);
-        if(!verified){
-            return res.status(401).json("Unauthorized")
-        }
-        const {id,uid} = req.params;
+        
+        const {id} = req.params;
         const post = await pool.query("SELECT * FROM posts WHERE id = $1",[id])
-        if(post.rows[0].user_id !== verified.id){
+        if(post.rows.length === 0){
+            return res.status(404).json("Post not found")
+        }
+        const user = await pool.query("SELECT * FROM users WHERE id = $1",[post.rows[0].user_id])
+        const validToken = jwt.verify(token,process.env.JWT_SECRET);
+        if(validToken.id !== user.rows[0].id){
             return res.status(401).json("Unauthorized")
         }
         const deletePost = await pool.query("DELETE FROM posts WHERE id = $1",[id])
         res.status(200).json("Post deleted")
+
     }
     catch(err){
         console.error(err.message)
