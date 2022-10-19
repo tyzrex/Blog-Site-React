@@ -4,6 +4,7 @@ import Footer from '../Main-Components/Footer'
 import Navbar from '../Main-Components/Navbar'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import axios from 'axios';
 
 const Post = () => {
 
@@ -11,16 +12,30 @@ const Post = () => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
 
-  console.log(value)
-  console.log(title)
-  console.log(image)
+  const upload = async () =>{
+    try{
+      const formData = new FormData();
+      formData.append("file",formData);
+      const res = await axios.post("/upload");
+      console.log(res.data);
+      console.log(formData)
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    upload();
+  } 
 
   return (
     <div>
       <Navbar />
       <div className='lg:flex lg:justify-center lg:items-start lg:max-w-[1200px] max-w-[90%] h-auto mt-10 mb-16 mx-auto'>
         <div className='lg:flex lg:justify-around grid content-center justify-items-center gap-20 w-full items-center my-4'>
-          <form >
+          <form>
             <div className=''>
               <h1 className='text-3xl font-bold text-slate-800 text-center'>Create a Post</h1>
               <div>
@@ -67,7 +82,7 @@ const Post = () => {
             </div>
             <div>
 
-              <button className='bg-custom-green text-white px-6 py-2 rounded-md'>Post</button>
+              <button className='bg-custom-green text-white px-6 py-2 rounded-md' onClick={handleSubmit}>Post</button>
             </div>
           </div>
         </div>
