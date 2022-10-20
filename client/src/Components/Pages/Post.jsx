@@ -10,25 +10,33 @@ const Post = () => {
 
   const [value, setValue] = useState('');
   const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
+  const [file, setFile] = useState('');
 
-  const upload = async () =>{
-    try{
+  const upload = async () => {
+    try {
       const formData = new FormData();
-      formData.append("file",formData);
-      const res = await axios.post("/upload");
-      console.log(res.data);
-      console.log(formData)
+      formData.append("file", file);
+      const res = await axios.post("/upload", formData)
+      return res.data;
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    upload();
-  } 
+    const imgLink = await upload();
+    try {
+      const res = await axios.post(`/posts/posts`,{
+        title:title,
+        description:value,
+        img: imgLink
+      })
+    } catch (err) {
+      console.err(err)
+    }
+  }
 
   return (
     <div>
@@ -50,6 +58,8 @@ const Post = () => {
                     type="text"
                     placeholder="Give a title"
                     className="mt-1 w-full rounded-md border-gray-200 p-2 my-5 shadow-sm sm:text-sm border"
+                    name='title'
+                    value={title}
                   />
                 </div>
 
@@ -59,9 +69,10 @@ const Post = () => {
               </div>
             </div>
           </form>
+
           <div className='flex flex-col justify-between items-center gap-6 h-full'>
-            <div className='image flex flex-col justify-between'>
-              <h1 className='text-2xl font-bold text-center'>Upload image</h1>
+            <div className='file flex flex-col justify-between'>
+              <h1 className='text-2xl font-bold text-center'>Upload file</h1>
               <div className="flex justify-center items-center w-full py-6 ">
                 <label className="flex flex-col justify-center items-center w-full h-[300px] bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer">
                   <div className="flex flex-col justify-center items-center pt-5 pb-6 h-auto w-[250px]">
@@ -69,14 +80,14 @@ const Post = () => {
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG </p>
                   </div>
-                  <input onChange={e=>{
-                    setImage(e.target.files[0])
+                  <input onChange={e => {
+                    setFile(e.target.files[0])
                   }} id="dropzone-file" type="file" className="hidden" />
-                 {
-                    image && <div className='w-[200px] h-[150px] overflow-auto mb-4'>
-                      <img src={URL.createObjectURL(image)} alt="" className=' mb-10'/>
+                  {
+                    file && <div className='w-[200px] h-[150px] overflow-auto mb-4'>
+                      <img src={URL.createObjectURL(file)} alt="" className=' mb-10' />
                     </div>
-                 }
+                  }
                 </label>
               </div>
             </div>
@@ -85,6 +96,7 @@ const Post = () => {
               <button className='bg-custom-green text-white px-6 py-2 rounded-md' onClick={handleSubmit}>Post</button>
             </div>
           </div>
+
         </div>
       </div>
       <Footer />

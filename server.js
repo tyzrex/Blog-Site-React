@@ -8,11 +8,20 @@ const multer = require('multer');
 
 const PORT = process.env.PORT || 5000
 
-const upload = multer({dest: './uploads/'})
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './client/public/uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null,Date.now()+file.originalname)
+    }
+  })
+  
+  const upload = multer({ storage: storage })
 
 app.post('/upload', upload.single('file'), function (req, res) {
-    res.status(200).json("Image has been uploaded");
-    console.log(req.file,req.body)
+    const file = req.file;
+    res.status(200).json(file.filename);
   })
 
 app.use(cors());

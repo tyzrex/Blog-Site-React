@@ -82,13 +82,10 @@ const Login = () => {
               <form action="#" className="mt-8 gap-6">
                 <div className="flex flex-col gap-6 justify-center">
                   <div>
-                    <label
-                      for="Username"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Username
-                    </label>
 
+                    <div className="py-2">
+                      <h1>Username</h1>
+                    </div>
                     <input
                       onChange={handleChange}
                       type="text"
@@ -101,13 +98,10 @@ const Login = () => {
                   </div>
 
                   <div>
-                    <label
-                      for="Password"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Password
-                    </label>
 
+                  <div className="py-2">
+                      <h1>Password</h1>
+                    </div>
                     <input
                       onChange={handleChange}
                       type="password"

@@ -3,10 +3,17 @@ import {FaEdit} from 'react-icons/fa'
 import {AiOutlineDelete} from 'react-icons/ai'
 import { AuthContext } from '../Context/Authcontext'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const Detailpost = ({title,description,image,username}) => {
 
     const {user} = useContext(AuthContext);
+
+    const [data, setData] = useState({
+        title : {title},
+        description: {description}
+      })
 
     const id = window.location.pathname.split('/')[2];
 
@@ -20,12 +27,13 @@ const Detailpost = ({title,description,image,username}) => {
         }
     }
 
+
     return (
         <div>
             <div className='flex flex-col items-center justify-center mx-3 my-4 h-auto'>
                 <div className='flex flex-col items-center justify-center gap-5 max-w-[90%]'>
                     <h1 className='text-3xl font-bold text-slate-800 text-center '>{title}</h1>
-                    <img src={image} alt="" className='w-[100%] h-[400px] object-cover ' />
+                    <img src={`/uploads/${image}`} alt="" className='w-[100%] h-[400px] object-cover ' />
                     <div className='grid gap-4'>
                         <div className='grid gap-2 text-custom-green font-bold'>
                             <div className='flex items-center gap-2'>Posted by:
@@ -33,7 +41,7 @@ const Detailpost = ({title,description,image,username}) => {
                                 {user.username === username &&
                                     <div className='flex gap-2'>
                                     <AiOutlineDelete className='ml-2 text-red-500' onClick={handleDelete} />
-                                    <FaEdit className='ml-2 text-blue-500' />
+                                    <Link to={`/post/edit`} state={data}><FaEdit className='ml-2 text-blue-500' /></Link>
                                     </div>
                                 }
                             </div>

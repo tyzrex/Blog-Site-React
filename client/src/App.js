@@ -6,6 +6,7 @@ import Register from './Components/Pages/Register';
 import Newposts from './Components/Pages/Newposts';
 import Post from './Components/Pages/Post';
 import Individualpost from './Components/Pages/Individualpost';
+import Edit from './Components/Pages/Edit';
 
 
 const router = createBrowserRouter(
@@ -32,6 +33,10 @@ const router = createBrowserRouter(
     {
       path:"individualpost/:id",
       element: <Individualpost />,
+    },
+    {
+      path:"post/edit/",
+      element:<Edit />
     }
   ]);
 
@@ -44,3 +49,4 @@ function App() {
 }
 
 export default App;
+

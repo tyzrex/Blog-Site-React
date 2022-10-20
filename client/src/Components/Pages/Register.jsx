@@ -98,12 +98,9 @@ const Register = () => {
 
                             <form action="#" className="mt-8 grid grid-cols-6 gap-6">
                                 <div className="col-span-6 sm:col-span-3">
-                                    <label
-                                        for="FirstName"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Username
-                                    </label>
+                                    <div className="py-2">
+                                        <h1>Username</h1>
+                                    </div>
 
                                     <input
                                         onChange={handleChange}
@@ -121,12 +118,9 @@ const Register = () => {
                                 </div>
 
                                 <div className="col-span-6">
-                                    <label
-                                        for="Email"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Email
-                                    </label>
+                                    <div className="py-2">
+                                        <h1>Email</h1>
+                                    </div>
 
                                     <input
                                         onChange={handleChange}
@@ -144,12 +138,9 @@ const Register = () => {
                                 </div>
 
                                 <div className="col-span-6 sm:col-span-3">
-                                    <label
-                                        for="Password"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        Password
-                                    </label>
+                                    <div className="py-2">
+                                        <h1>Password</h1>
+                                    </div>
 
                                     <input
                                         onChange={handleChange}
