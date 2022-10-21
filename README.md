@@ -10,11 +10,9 @@ This is a blog site built with the PERN stack (PostgreSQL, Express, React, Node.
 
 1. Clone the repository
 
-````bash
-
+```bash
 git clone
-
-    ```
+```
 
 2. Install dependencies
 
