@@ -7,6 +7,8 @@ import Newposts from './Components/Pages/Newposts';
 import Post from './Components/Pages/Post';
 import Individualpost from './Components/Pages/Individualpost';
 import Edit from './Components/Pages/Edit';
+import Privateroute from './Components/PrivateRoute/Privateroute';
+import LoggedRoute from './Components/PrivateRoute/LoggedRoute';
 
 
 const router = createBrowserRouter(
@@ -16,11 +18,13 @@ const router = createBrowserRouter(
     },
     {
       path:"/login",
-      element: <Login />,
+      element: <LoggedRoute><Login/></LoggedRoute>,
     },
     {
       path:"/register",
-      element: <Register />,
+      element: 
+        <LoggedRoute><Register/></LoggedRoute>
+      ,
     },
     {
       path:"/newposts",
@@ -28,7 +32,9 @@ const router = createBrowserRouter(
     },
     {
       path:"/post",
-      element: <Post />,
+      element: <Privateroute>
+        <Post />
+      </Privateroute>,
     },
     {
       path:"individualpost/:id",

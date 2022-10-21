@@ -42,8 +42,7 @@ const Login = () => {
       console.log("Invalid submissions try again");
     } else {
       try {
-        loginUser(data)
-        navigate('/')
+        loginUser(data,subError,setSubError)
       }
       catch (err) {
         setSubError(err.response.data)
@@ -51,6 +50,8 @@ const Login = () => {
       }
     }
   };
+
+  console.log(subError)
 
   const navigate = useNavigate();
 
@@ -114,7 +115,7 @@ const Login = () => {
                   </div>
 
                   <div className="col-span-6 sm:col-span-3 flex items-center">
-                    {subError && <h1 className="text-red-600">{subError}</h1>}
+                    {subError ? <h1 className="text-red-600">{subError}</h1> : <></>}
                   </div>
 
                   <div className=" flex flex-col items-center gap-4">

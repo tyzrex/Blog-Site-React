@@ -57,7 +57,7 @@ router.post("/login",async(req,res)=>{
       sameSite:true
       }).status(200).json(others)
   }catch(err){
-    console.error(err.message);
+    res.status(409).json("Unauthorized")
   }
 })
 
