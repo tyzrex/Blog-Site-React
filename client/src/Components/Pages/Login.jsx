@@ -43,6 +43,7 @@ const Login = () => {
     } else {
       try {
         loginUser(data,subError,setSubError)
+        navigate("/")
       }
       catch (err) {
         setSubError(err.response.data)
