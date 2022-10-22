@@ -43,7 +43,6 @@ const Login = () => {
     } else {
       try {
         loginUser(data,subError,setSubError)
-        navigate("/")
       }
       catch (err) {
         setSubError(err.response.data)
@@ -53,8 +52,6 @@ const Login = () => {
   };
 
   console.log(subError)
-
-  const navigate = useNavigate();
 
   console.log(data)
 

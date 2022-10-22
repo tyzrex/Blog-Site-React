@@ -9,6 +9,7 @@ import Individualpost from './Components/Pages/Individualpost';
 import Edit from './Components/Pages/Edit';
 import Privateroute from './Components/PrivateRoute/Privateroute';
 import LoggedRoute from './Components/PrivateRoute/LoggedRoute';
+import Settings from './Components/Pages/Settings';
 
 
 const router = createBrowserRouter(
@@ -43,6 +44,10 @@ const router = createBrowserRouter(
     {
       path:"post/edit/",
       element:<Edit />
+    },
+    {
+      path:"user/settings",
+      element: <Settings />
     }
   ]);
 

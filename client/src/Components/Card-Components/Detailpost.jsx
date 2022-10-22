@@ -26,6 +26,10 @@ const Detailpost = ({title,description,image,username}) => {
             console.log(err)
         }
     }
+    const convertText = (html) =>{
+        const doc = new DOMParser().parseFromString(html,'text/html');
+        return doc.body.textContent;
+    }
 
 
     return (
@@ -48,7 +52,7 @@ const Detailpost = ({title,description,image,username}) => {
                             <p>Posted on: </p>
                         </div>
                         <div className='mx-auto'>
-                            <p className='text-xl text-gray-500 text-justify'>{description}</p>
+                            <p className='text-xl text-gray-500 text-justify'>{convertText(description)}</p>
                         </div>
                     </div>
                 </div>

@@ -5,9 +5,7 @@ import Footer from '../Main-Components/Footer'
 import Navbar from '../Main-Components/Navbar'
 import Detailpost from '../Card-Components/Detailpost'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
 import Loading from '../Main-Components/Loading'
-import { AuthContext } from '../Context/Authcontext'
 
 const Individualpost = () => {
 

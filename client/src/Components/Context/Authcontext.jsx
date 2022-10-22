@@ -1,14 +1,19 @@
 import { createContext, useEffect, useState,setState } from "react";
-import axios from "axios";
+import axios from "axios"; 
+import { Navigate } from "react-router-dom";
 export const AuthContext = createContext();
+
+
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || "");
 
     const loginUser = async (data,subError,setSubError) => {
+        
         try {
             const response = await axios.post('/auth/login', data)
-            setUser(response.data)
+            setUser(response.data);
+            <Navigate to= "/"/>
         }
         catch (err) {
             setSubError(err.response.data)

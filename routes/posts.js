@@ -39,19 +39,6 @@ router.post("/posts", async (req, res) => {
 });
 
 //get post by id
-
-// router.get('/:id',async(req,res)=>{
-//     try{
-//         const {id} = req.params;
-//         const post = await pool.query("SELECT * FROM posts WHERE id = $1",[id])
-//         res.status(200).json(post.rows[0])
-//     }
-//     catch(err){
-//         console.error(err.message)
-//     }
-// }
-// )
-
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -95,5 +82,28 @@ router.delete("/:id", async (req, res) => {
     console.error(err.message);
   }
 });
+
+//edit a post
+router.put("/edit/:id",async(req,res)=>{
+  const {id} = req.params;
+  const post = await pool.query("SELECT * FROM posts WHERE id = $1",[id])
+  if(post.rows.length === 0){
+    return res.status(404).json("Post not found");
+  }
+  const user = await pool.query("SELECT * FROM users WHERE id = $1",[post.rows[0].user_id])
+  const validToken = jwt.verify(token,process.env.JWT_SECRET);
+  if(validToken.id!==user.rows[0].id){
+    return res.status(401).json("Unauthorized")
+  }try{
+
+  const {title,description} = req.body;
+  const editPost = await pool.query("UPDATE posts SET title = $1 description = $2 RETURNING *",[title,description])
+  res.statusCode(200).json(editPost[0]);
+  }
+  catch(err){
+    console.log(err);
+  }
+})
+
 
 module.exports = router;

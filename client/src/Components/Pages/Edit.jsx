@@ -29,14 +29,10 @@ const Edit = () => {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
-    const imgLink = await upload();
     try{  
-      state? await axios.put(`/posts/${state.id}`,{
-        title,description: value,img: imgLink,
-      }) :
-       await axios.post(`/posts/post`,{
-        title,description: value,img: imgLink,
-      })
+       await axios.put(`/posts/edit/${state.id}`,{
+        title,description: value
+      }) 
     }catch(err){
       console.log(err.msg)
     }
