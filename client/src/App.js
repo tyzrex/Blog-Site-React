@@ -29,7 +29,9 @@ const router = createBrowserRouter(
     },
     {
       path:"/newposts",
-      element: <Newposts />,
+      element: <Privateroute>
+        <Newposts/>
+      </Privateroute>,
     },
     {
       path:"/post",

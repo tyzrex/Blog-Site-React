@@ -13,6 +13,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get posts by user id
+
+router.get("/user", async (req, res) => {
+  try {
+    const token = req.cookies.access_token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const getPosts = await pool.query(
+      "SELECT * FROM posts WHERE user_id = $1",
+      [decoded.id]
+    );
+    res.status(200).json(getPosts.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+
 //publish post
 
 router.post("/posts", async (req, res) => {
@@ -104,6 +121,4 @@ router.put("/edit/:id",async(req,res)=>{
     console.log(err);
   }
 })
-
-
 module.exports = router;

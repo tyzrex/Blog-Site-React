@@ -5,6 +5,7 @@ import Navbar from '../Main-Components/Navbar'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 const Post = () => {
 
@@ -32,7 +33,8 @@ const Post = () => {
         title:title,
         description:value,
         img: imgLink
-      })
+      });
+      <Navigate to="/"/>
     } catch (err) {
       console.err(err)
     }

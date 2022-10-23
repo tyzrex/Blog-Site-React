@@ -46,11 +46,8 @@ const Individualpost = () => {
     // ]
 
     const [post,setPost] = useState([])
-
     const [individualPost,setIndividualPost] = useState([])
-
     console.log(individualPost)
-
 
     const [loading,setLoading] = useState(true)
 

@@ -22,7 +22,7 @@ const Navbar = () => {
                         <div className='p-4 hover-underline-animation'>Home</div>
                         </Link>
                         <Link to='/newposts'>
-                        <div className='p-4 hover-underline-animation'>New Blogs</div>
+                        <div className='p-4 hover-underline-animation'>My Posts</div>
                         </Link>
                         <Link>
                         <div className='p-4 hover-underline-animation'>Popular</div>

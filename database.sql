@@ -9,7 +9,7 @@ create table users (
     email varchar(255) not null,
     created_at timestamp default now(),
     img varchar(255),
-    uid varchar(255) not null
+    uid varchar(255) not null unique
 );
 
 
@@ -19,6 +19,6 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     image VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
-    user_id INT NOT NULL,
+    user_id varchar(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(uid) ON DELETE CASCADE
 );
