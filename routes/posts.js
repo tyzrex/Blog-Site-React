@@ -111,14 +111,13 @@ router.put("/edit/:id",async(req,res)=>{
   const validToken = jwt.verify(token,process.env.JWT_SECRET);
   if(validToken.id!==user.rows[0].id){
     return res.status(401).json("Unauthorized")
-  }try{
-
-  const {title,description} = req.body;
-  const editPost = await pool.query("UPDATE posts SET title = $1 description = $2 RETURNING *",[title,description])
-  res.statusCode(200).json(editPost[0]);
   }
-  catch(err){
-    console.log(err);
+  try{
+    const {title,content} = req.body;
+    const editPost = await pool.query("UPDATE posts SET title = $1,content = $2 WHERE id = $3",[title,content,id])
+    res.status(200).json("Post updated")
+  }catch(err){
+    console.error(err.message)
   }
 })
 module.exports = router;
