@@ -19,24 +19,26 @@ const Edit = () => {
     try{
       const formData = new FormData();
       formData.append("file",file);
-      const res = await axios.post("/upload",formData)
+      const res = await axios.put("/upload",formData)
       return res.data;
     }
     catch(err){
       console.log(err);
     }
   }
+  console.log(state)
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try{  
-       await axios.put(`/posts/edit/${state.id}`,{
+       await axios.put(`/posts/edit/${state.id.id}`,{
         title,description: value
       }) 
     }catch(err){
       console.log(err.msg)
     }
   } 
+  console.log(state.id.id)
 
   return (
     <div>
@@ -45,7 +47,7 @@ const Edit = () => {
         <div className='lg:flex lg:justify-around grid content-center justify-items-center gap-20 w-full items-center my-4'>
           <form method='POST' encType='multipart/form-data'>
             <div className=''>
-              <h1 className='text-3xl font-bold text-slate-800 text-center'>Create a Post</h1>
+              <h1 className='text-3xl font-bold text-slate-800 text-center'>Update Post</h1>
               <div>
 
                 <div>

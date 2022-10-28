@@ -103,9 +103,10 @@ router.delete("/:id", async (req, res) => {
 //edit a post
 router.put("/edit/:id",async(req,res)=>{
   const {id} = req.params;
+  const token = req.cookies.access_token;
   const post = await pool.query("SELECT * FROM posts WHERE id = $1",[id])
   if(post.rows.length === 0){
-    return res.status(404).json("Post not found");
+    return res.status(404).json("Post not found"); 
   }
   const user = await pool.query("SELECT * FROM users WHERE id = $1",[post.rows[0].user_id])
   const validToken = jwt.verify(token,process.env.JWT_SECRET);
@@ -113,8 +114,8 @@ router.put("/edit/:id",async(req,res)=>{
     return res.status(401).json("Unauthorized")
   }
   try{
-    const {title,content} = req.body;
-    const editPost = await pool.query("UPDATE posts SET title = $1,content = $2 WHERE id = $3",[title,content,id])
+    const {title,content,id} = req.body;
+    const editPost = await pool.query("UPDATE posts SET title = $1,content = $2 WHERE id = $3",[title,content,66])
     res.status(200).json("Post updated")
   }catch(err){
     console.error(err.message)

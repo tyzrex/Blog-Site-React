@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import { RiMenu4Line } from 'react-icons/ri'
 import { AiOutlineClose } from 'react-icons/ai'
-import Logo from '../../Assets/logo4.png'
+import Logo from '../../Assets/mainlogo.png'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/Authcontext';
 

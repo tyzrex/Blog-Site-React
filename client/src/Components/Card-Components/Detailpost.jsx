@@ -7,15 +7,13 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 const Detailpost = ({title,description,image,username}) => {
-
     const {user} = useContext(AuthContext);
-
+    const id = window.location.pathname.split('/')[2];
     const [data, setData] = useState({
         title : {title},
-        description: {description}
+        description: {description},
+        id : {id}
       })
-
-    const id = window.location.pathname.split('/')[2];
 
     const handleDelete = async () => {
         try{
@@ -30,6 +28,8 @@ const Detailpost = ({title,description,image,username}) => {
         const doc = new DOMParser().parseFromString(html,'text/html');
         return doc.body.textContent;
     }
+    console.log(data)
+
 
 
     return (
@@ -45,7 +45,7 @@ const Detailpost = ({title,description,image,username}) => {
                                 {user.username === username &&
                                     <div className='flex gap-2'>
                                     <AiOutlineDelete className='ml-2 text-red-500' onClick={handleDelete} />
-                                    <Link to={`/post/edit`} state={data}><FaEdit className='ml-2 text-blue-500' /></Link>
+                                    <Link to={`/post/edit/${id}`} state={data}><FaEdit className='ml-2 text-blue-500' /></Link>
                                     </div>
                                 }
                             </div>
