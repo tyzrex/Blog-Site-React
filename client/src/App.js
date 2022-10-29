@@ -44,7 +44,7 @@ const router = createBrowserRouter(
       element: <Individualpost />,
     },
     {
-      path:"post/edit/",
+      path:"post/edit/:id",
       element:<Edit />
     },
     {

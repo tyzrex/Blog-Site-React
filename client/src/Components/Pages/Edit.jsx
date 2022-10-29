@@ -26,7 +26,6 @@ const Edit = () => {
       console.log(err);
     }
   }
-  console.log(state)
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
