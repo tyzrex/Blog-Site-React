@@ -18,7 +18,7 @@ const Postcards = ({ index, image, title, description,created_at,username }) => 
             <div className="container pt-4 pb-10 mx-auto max-w-[95%] w-[100%] ">
                 <div className="inner md:w-full w-[80%] mx-auto grid grid-flow-row content-center justify-items-center lg:flex lg:justify-center lg:items-center lg:gap-40 gap-10 ">
                     <div className="img-container max-h-[400px] max-w-[400px] bg-custom-green rounded">
-                         <img alt='postimg' className="max-h-[400px] top-5 left-5 relative max-w-[400px]object-cover object-center rounded" src={`/uploads/${image}`} />
+                         <img alt='postimg' className="max-h-[400px] top-5 left-5 relative max-w-[400px]object-cover object-center rounded" src={`/files/uploads/${image}`} />
                     </div>
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0 flex flex-col gap-6 md:max-w-[95%] ">
                             <h1 className="text-custom-green text-3xl title-font font-bold mb-1">{title}</h1>
