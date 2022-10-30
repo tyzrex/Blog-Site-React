@@ -5,7 +5,7 @@ import Navbar from '../Main-Components/Navbar'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 
 const Edit = () => {
 
@@ -26,18 +26,25 @@ const Edit = () => {
       console.log(err);
     }
   }
-
+  const navigate = useNavigate();
   const handleSubmit = async (e)=>{
     e.preventDefault();
     try{  
        await axios.put(`/posts/edit/${state.id.id}`,{
-        title,description: value
+        title: title,
+        description: convertText(value),
+        id: state.id.id
       }) 
+      navigate('/');
     }catch(err){
       console.log(err.msg)
     }
   } 
-  console.log(state.id.id)
+  const convertText = (html) =>{
+    const doc = new DOMParser().parseFromString(html,'text/html');
+    return doc.body.textContent;
+}
+  console.log(convertText(value))
 
   return (
     <div>

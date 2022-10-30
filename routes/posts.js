@@ -114,8 +114,8 @@ router.put("/edit/:id",async(req,res)=>{
     return res.status(401).json("Unauthorized")
   }
   try{
-    const {title,content,id} = req.body;
-    const editPost = await pool.query("UPDATE posts SET title = $1,content = $2 WHERE id = $3",[title,content,66])
+    const {title,description,id} = req.body;
+    const editPost = await pool.query("Update posts SET title = $1,content = $2 WHERE posts.id = $3 RETURNING *",[title,description,id])
     res.status(200).json("Post updated")
   }catch(err){
     console.error(err.message)

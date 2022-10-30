@@ -15,7 +15,7 @@ const Postcards = ({ index, image, title, description,created_at,username }) => 
         // make a card component
         <div className='my-5 bg-white posts'>
         <section className="my-4 text-gray-600 body-font overflow-hidden shadow-lg lg:max-w-[1200px] lg:w-[1200px] md:w-[700px] sm:w-[500px] w-[350px]">
-            <div className="container pt-4 pb-10 mx-auto w-[100%] ">
+            <div className="container pt-4 pb-10 mx-auto max-w-[95%] w-[100%] ">
                 <div className="inner md:w-full w-[80%] mx-auto grid grid-flow-row content-center justify-items-center lg:flex lg:justify-center lg:items-center lg:gap-40 gap-10 ">
                     <div className="img-container max-h-[400px] max-w-[400px] bg-custom-green rounded">
                          <img alt='postimg' className="max-h-[400px] top-5 left-5 relative max-w-[400px]object-cover object-center rounded" src={`/uploads/${image}`} />
