@@ -4,7 +4,7 @@ This is a blog site built with the PERN stack (PostgreSQL, Express, React, Node.
 
 ## Preview
 
-![Preview]()
+![Preview](./client/src/Assets/screencapture-localhost-3000-2022-11-03-08_04_18.png)
 
 ## Installation
 
